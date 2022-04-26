@@ -1,6 +1,7 @@
 package com.example.demo.repository;
 
 import com.example.demo.DemoApplicationTests;
+import com.example.demo.model.entity.Item;
 import com.example.demo.model.entity.User;
 import junit.framework.Assert;
 import org.junit.jupiter.api.Test;
@@ -31,12 +32,15 @@ public class UserRepositoryTest extends DemoApplicationTests {
     }
 
     @Test
+    @Transactional
     public void read() {
-        Optional<User> user = userRepository.findById(2);
+        Optional<User> user = userRepository.findById(1);
 
         user.ifPresent(selectUser -> {
-            System.out.println("user : " + selectUser);
-            System.out.println("email : " + selectUser.getEmail());
+            selectUser.getOrderDetailList().stream().forEach(detail -> {
+                Item item = detail.getItem();
+                System.out.println(item);
+            });
         });
     }
 
