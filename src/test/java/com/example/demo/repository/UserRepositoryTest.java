@@ -2,9 +2,10 @@ package com.example.demo.repository;
 
 import com.example.demo.DemoApplicationTests;
 import com.example.demo.model.entity.User;
+import junit.framework.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -39,6 +40,8 @@ public class UserRepositoryTest extends DemoApplicationTests {
         });
     }
 
+    @Test
+    @Transactional
     public void update() {
         Optional<User> user = userRepository.findById(2);
         user.ifPresent(selectUser -> {
@@ -50,8 +53,19 @@ public class UserRepositoryTest extends DemoApplicationTests {
         });
     }
 
+    @Test
+    @Transactional
     public void delete() {
+        Optional<User> user = userRepository.findById(8);
+
+        Assert.assertTrue(user.isPresent());
+
+        user.ifPresent(selectUser -> {
+            userRepository.delete(selectUser);
+        });
+
+        Optional<User> deleteUser = userRepository.findById(8);
+        Assert.assertFalse(deleteUser.isPresent());
 
     }
-
 }
