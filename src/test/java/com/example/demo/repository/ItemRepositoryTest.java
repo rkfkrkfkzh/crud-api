@@ -16,9 +16,9 @@ public class ItemRepositoryTest extends DemoApplicationTests {
     @Test
     public void create() {
         Item item = new Item();
-        item.setName("노트북");
+        item.setName("휴대폰");
         item.setPrice(100000);
-        item.setContent("삼성노트북");
+        item.setContent("애플폰");
 
         Item newItem = itemRepository.save(item);
         Assert.assertNotNull(newItem);
@@ -26,7 +26,7 @@ public class ItemRepositoryTest extends DemoApplicationTests {
 
     @Test
     public void read() {
-        int id = 1;
+        Integer id = 1;
         Optional<Item> item = itemRepository.findById(id);
 
         Assert.assertTrue(item.isPresent());
