@@ -27,10 +27,8 @@ public class ItemRepositoryTest extends DemoApplicationTests {
     @Test
     public void read() {
         Integer id = 1;
+
         Optional<Item> item = itemRepository.findById(id);
-
         Assert.assertTrue(item.isPresent());
-
-
     }
 }
